@@ -10,7 +10,7 @@
         const sweets = ['🍪', '🍩', '🍰', '🧁', '🍭']; // สุ่มขนมจะได้ไม่เบื่อ
         candy.innerText = sweets[Math.floor(Math.random() * sweets.length)];
         document.body.appendChild(candy);
-
+        const sound = document.getElementById('eat-sound');
         // 2. ฟังก์ชันช่วยหาตำแหน่งปัจจุบันของรูปน้อง
         const getTargetPos = () => {
             const img = document.getElementById('no-img').getBoundingClientRect();
@@ -31,6 +31,8 @@
             candy.style.opacity = '1';
             candy.style.left = (currentPos.x - 50) + 'px';
             candy.style.top = currentPos.y + 'px'; // อัปเดต Y ให้ตรงปากพอดี
+            sound.currentTime = 0; // Reset เสียงให้เริ่มใหม่ทุกครั้งที่กด (ป้องกันรัวปุ่มแล้วเสียงไม่ขึ้น)
+            sound.play();
         }, 50);
 
         // 4. กินเสร็จแล้วลบออก
@@ -58,17 +60,17 @@
         // 🧠 นี่คือ Logic Range (0-50, 51-80, 81+)
         if (score <= 30) {
             // State: ผอมโซ
-            img.src = "no_thin.jpg";
+            img.src = "assets/images/no_thin.jpg";
             img.style.width = "250px";
             status.innerText = "กำลังหิวโหย...";
         } else if (score <= 80) {
             // State: เริ่มมีกิน
-            img.src = "no_normal.jpg";
+            img.src = "assets/images/no_normal.jpg";
             img.style.width = "300px"; // ขยายขนาดนิดหน่อย
             status.innerText = "เริ่มมีแก้มแล้ว!";
         } else {
             // State: SUPER FAT (เวอร์ชันพุงป่องอิ่มจนเดินไม่ไหว!)
-            img.src = "no_superfat.jpg";
+            img.src = "assets/images/no_superfat.jpg";
             img.style.width = "400px"; // ขยายร่างใหญ่สุดๆ
             status.innerText = "อิ่มจนพุงกาง เดินไม่ไหวแล้ว!! (Super Fat)";
         }
@@ -78,7 +80,7 @@
         // ถ้ามีใครพยายามเปลี่ยนคะแนนจาก Console...
         alert("แกพยายามโกงเหรอ?!");
         document.body.classList.add('nightmare-mode');
-        document.getElementById('no-img').src = 'cheat.jpg';
+        document.getElementById('no-img').src = 'assets/images/cheat.jpg';
         document.getElementById('status-text').innerText = "แกทำอะไรลงไป...";
     }
 })();
