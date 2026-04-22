@@ -11,6 +11,7 @@
         candy.innerText = sweets[Math.floor(Math.random() * sweets.length)];
         document.body.appendChild(candy);
         const sound = document.getElementById('eat-sound');
+        const newAudio = sound.cloneNode();
         // 2. ฟังก์ชันช่วยหาตำแหน่งปัจจุบันของรูปน้อง
         const getTargetPos = () => {
             const img = document.getElementById('no-img').getBoundingClientRect();
@@ -42,6 +43,11 @@
                     console.log("Play interrupted or blocked");
                 });
             }
+            newAudio.play();
+            // 5. (Optional) พอมันเล่นจบ ให้ทำลายตัวเองทิ้งเพื่อประหยัด RAM มือถือ
+            newAudio.onended = function () {
+                newAudio.remove();
+            };
         }, 50);
 
         // 4. กินเสร็จแล้วลบออก
