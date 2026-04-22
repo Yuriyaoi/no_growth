@@ -1,0 +1,88 @@
+body {
+    background-color: #fff0f5;
+    /* สีชมพูอ่อน */
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+.game-container {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 50px;
+}
+
+.game-title {
+    color: #87CEEB;
+    /* สีฟ้าท้องฟ้า */
+}
+
+#no-img {
+    width: 250px;
+    transition: width 0.3s ease;
+    /* เวลาน้องตัวใหญ่ขึ้นจะดูนุ่มนวล */
+}
+
+.score-text {
+    color: #FFB6C1;
+    /* สีชมพู */
+}
+
+#status-text {
+    color: #555;
+    font-weight: bold;
+}
+
+.feed-button {
+    background-color: white;
+    border: 2px solid #87CEEB;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    
+    /* คำสั่งห้ามซูมเวลาจิ้มรัวๆ */
+    touch-action: manipulation;  
+
+    /* ป้องกันไม่ให้ขึ้นแถบไฮไลต์สีฟ้าเวลาจิ้ม (สำหรับ Mobile) */
+    -webkit-tap-highlight-color: transparent;
+
+    /* แถม: เพิ่มลูกเล่นเวลาเอาเมาส์ไปชี้ */
+    transition: 0.2s;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.feed-button:hover {
+    background-color: #f0faff; /* เปลี่ยนสีนิดๆ เวลาเอาเมาส์ชี้ */
+    transform: scale(1.05);   /* ขยายขึ้นนิดนึงให้ดูมีมิติ */
+}
+
+.feed-button:active {
+    transform: scale(0.95);    /* ยุบตัวลงเวลาถูกกดจริง */
+    background-color: #e0f0ff;
+    transition: transform 0.1s;
+}
+
+#hunger-bar-container {
+    width: 200px;
+    background: #eee;
+    border-radius: 10px;
+    margin: 20px auto;
+    overflow: hidden;
+    border: 2px solid #ffb7c5;
+}
+
+#hunger-bar {
+    width: 50%;
+    height: 20px;
+    background: #ff99cc;
+    transition: 0.3s;
+}
+
+/* ร่าง Nightmare เติมสีแดงที่นี่! */
+.nightmare-mode {
+    background-color: #2c0000 !important;
+    color: red;
+}
