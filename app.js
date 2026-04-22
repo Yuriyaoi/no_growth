@@ -2,7 +2,53 @@
     let score = 0; // ตัวแปรเก็บคะแนน เริ่มที่ 0
 
     // ส่วน Logic (Process)
-    window.feedNo = function () {
+    window.feedNo = function (event) {
+
+        // 1. สร้างขนม
+        const candy = document.createElement('div');
+        candy.className = 'candy-fly';
+        const sweets = ['🍪', '🍩', '🍰', '🧁', '🍭']; // สุ่มขนมจะได้ไม่เบื่อ
+        candy.innerText = sweets[Math.floor(Math.random() * sweets.length)];
+        document.body.appendChild(candy);
+
+        // 2. ฟังก์ชันช่วยหาตำแหน่งปัจจุบันของรูปน้อง
+        const getTargetPos = () => {
+            const img = document.getElementById('no-img').getBoundingClientRect();
+            return {
+                x: img.left + img.width / 2,
+                y: img.top + img.height / 2
+            };
+        };
+        const startPos = getTargetPos();
+        // 3. จุดเริ่มต้น: อยู่ทางซ้ายของตำแหน่ง Y ปัจจุบัน
+        candy.style.left = (startPos.x - 300) + 'px'; // ห่างออกมาหน่อย
+        candy.style.top = startPos.y + 'px';
+        candy.style.opacity = '0';
+
+        // 4. สั่งให้บินไป (เช็คตำแหน่ง Y ใหม่อีกรอบเผื่อน้องอ้วนขึ้นขวางทาง)
+        setTimeout(() => {
+            const currentPos = getTargetPos(); // คำนวณ Y ใหม่
+            candy.style.opacity = '1';
+            candy.style.left = (currentPos.x - 50) + 'px';
+            candy.style.top = currentPos.y + 'px'; // อัปเดต Y ให้ตรงปากพอดี
+        }, 50);
+
+        // 4. กินเสร็จแล้วลบออก
+        setTimeout(() => {
+            candy.classList.add('candy-fade'); // ค่อยๆ จาง
+            setTimeout(() => candy.remove(), 500); // ลบออกจากหน้าเว็บ
+            updateUI();
+
+        }, 600);
+    };
+    // ดักจับการพยายามแฮ็กตัวแปร score
+    Object.defineProperty(window, 'score', {
+        set: function (value) {
+            triggerNightmare();
+        }
+    });
+
+    function updateUI() {
         score = score + 1; // บวกเพิ่มทีละหนึ่ง
         document.getElementById("score").innerText = score; // โชว์คะแนนใหม่
 
@@ -26,13 +72,7 @@
             img.style.width = "400px"; // ขยายร่างใหญ่สุดๆ
             status.innerText = "อิ่มจนพุงกาง เดินไม่ไหวแล้ว!! (Super Fat)";
         }
-    };
-    // ดักจับการพยายามแฮ็กตัวแปร score
-    Object.defineProperty(window, 'score', {
-        set: function (value) {
-            triggerNightmare();
-        }
-    });
+    }
 
     function triggerNightmare() {
         // ถ้ามีใครพยายามเปลี่ยนคะแนนจาก Console...

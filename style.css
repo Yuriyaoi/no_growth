@@ -65,6 +65,20 @@ body {
     transition: transform 0.1s;
 }
 
+.candy-fly {
+    position: fixed;
+    font-size: 50px; /* ใหญ่ขึ้นนิดนึงจะได้เห็นชัดๆ */
+    z-index: 100;
+    pointer-events: none;
+    /* transition: เน้นที่ left เพื่อให้มันเลื่อนจากซ้ายไปขวา */
+    transition: left 0.5s ease-out, opacity 0.3s ease-in, transform 0.3s;
+}
+
+.candy-fade {
+    opacity: 0;
+    transform: scale(0.5); /* ให้ดูเหมือนน้องงับจนเล็กลงแล้วหายไป */
+}
+
 #hunger-bar-container {
     width: 200px;
     background: #eee;
