@@ -31,8 +31,17 @@
             candy.style.opacity = '1';
             candy.style.left = (currentPos.x - 50) + 'px';
             candy.style.top = currentPos.y + 'px'; // อัปเดต Y ให้ตรงปากพอดี
+            sound.pause();        // สั่งหยุดก่อนเพื่อความชัวร์
             sound.currentTime = 0; // Reset เสียงให้เริ่มใหม่ทุกครั้งที่กด (ป้องกันรัวปุ่มแล้วเสียงไม่ขึ้น)
-            sound.play();
+            // 3. สั่งเล่นเสียง
+            // สำหรับมือถือ บางทีต้องใช้ Promise เพื่อบอกว่า "ฉันจะเล่นจริงๆ นะ"
+            let playPromise = sound.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Play interrupted or blocked");
+                });
+            }
         }, 50);
 
         // 4. กินเสร็จแล้วลบออก
